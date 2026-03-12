@@ -34,11 +34,24 @@
         <span class="card-icon">🔍</span>
         <h2>Verify Ticket</h2>
       </div>
-      <p class="card-desc">Enter the ticket ID shown on the attendee's QR code to verify and check them in.</p>
+      <p class="card-desc">Scan the attendee QR or enter ticket ID manually to verify and check them in.</p>
 
       <div class="form-group">
         <label>Ticket ID</label>
         <input id="ticketId" class="input-field" type="number" min="0" placeholder="e.g. 0">
+      </div>
+
+      <div class="scan-tools">
+        <button id="startScanBtn" class="btn btn-outline btn-sm" type="button">Start QR Scan</button>
+        <button id="stopScanBtn" class="btn btn-outline btn-sm" type="button" disabled>Stop Scan</button>
+      </div>
+
+      <div id="qrReader" class="qr-reader" style="display:none"></div>
+      <p id="scanHelp" class="card-desc" style="margin-top: 12px; margin-bottom: 14px;">Scanner reads purchaser details directly from the QR ticket. For mobile/LAN camera access, open this page via HTTPS.</p>
+
+      <div id="purchaserDetails" class="scan-result" style="display:none">
+        <div id="purchaserTitle" class="result-title"></div>
+        <div id="purchaserMsg" class="result-msg"></div>
       </div>
 
       <button id="verifyBtn" class="btn btn-primary btn-full">Verify &amp; Check In</button>
@@ -54,6 +67,7 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script src="js/vendor/html5-qrcode.min.js"></script>
 <script src="js/scanner.js"></script>
 
 </body>

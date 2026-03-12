@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritix — Attendee Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/user-dashboard.css">
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<nav class="navbar">
+  <a href="user.html" class="nav-back">← Tickets</a>
+  <div class="nav-brand">🎟 Veritix</div>
+  <button id="disconnectBtn" class="btn btn-outline btn-sm">Disconnect</button>
+</nav>
+
+<div class="dashboard-container">
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-avatar" id="profileAvatar">👤</div>
+      <div class="sidebar-user">
+        <div class="sidebar-username" id="sidebarUsername">Loading...</div>
+        <div class="sidebar-wallet" id="sidebarWallet"></div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-tab="profile">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">My Profile</span>
+      </button>
+      <button class="nav-item" data-tab="shows">
+        <span class="nav-icon">🎭</span>
+        <span class="nav-label">Shows</span>
+      </button>
+      <button class="nav-item" data-tab="mytickets">
+        <span class="nav-icon">🎟</span>
+        <span class="nav-label">My Tickets</span>
+      </button>
+      <button class="nav-item" data-tab="transfer">
+        <span class="nav-icon">📤</span>
+        <span class="nav-label">Transfer</span>
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dashboard-content">
+
+    <!-- MY PROFILE TAB -->
+    <section class="tab-content" id="profile-tab" style="display: block;">
+      <div class="content-header">
+        <h1>My Profile</h1>
+        <p class="content-subtitle">Manage your account and professional information</p>
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-photo-section">
+          <div class="profile-photo" id="profilePhoto">🎭</div>
+          <button class="btn btn-outline btn-sm" style="width: 100%; margin-top: 12px;">Change Photo</button>
+        </div>
+
+        <div class="profile-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" class="input-field" id="profileName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="input-field" id="profileEmail" placeholder="your@email.com">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" class="input-field" id="profilePhone" placeholder="+1 (555) 000-0000">
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" class="input-field" id="profileLocation" placeholder="City, Country">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Professional Title</label>
+            <input type="text" class="input-field" id="profileTitle" placeholder="e.g. Software Engineer, Designer">
+          </div>
+
+          <div class="form-group">
+            <label>Bio</label>
+            <textarea class="input-field" id="profileBio" placeholder="Tell us about yourself" rows="4"></textarea>
+          </div>
+
+          <button class="btn btn-primary" id="saveProfileBtn">Save Profile</button>
+          <div id="profileStatus" class="status-message"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOWS TAB -->
+    <section class="tab-content" id="shows-tab">
+      <div class="content-header">
+        <h1>Upcoming Shows</h1>
+        <p class="content-subtitle">Browse and book tickets for exciting events</p>
+      </div>
+
+      <div class="shows-grid" id="showsGrid">
+        <!-- Shows will be populated here -->
+      </div>
+
+      <div id="bookingStatus" class="status-message"></div>
+    </section>
+
+    <!-- MY TICKETS TAB -->
+    <section class="tab-content" id="mytickets-tab">
+      <div class="content-header">
+        <h1>My Tickets</h1>
+        <p class="content-subtitle">Manage your booked event tickets</p>
+      </div>
+
+      <div class="tickets-list" id="ticketsList">
+        <!-- User tickets will be populated here -->
+      </div>
+
+      <div id="ticketDetailPanel" class="glass-card ticket-detail-panel" style="display: none;">
+        <div class="card-header">
+          <span class="card-icon">🎫</span>
+          <h2>Ticket Details</h2>
+        </div>
+
+        <div class="ticket-detail-grid">
+          <div class="ticket-detail-item">
+            <span>Event Name</span>
+            <strong id="detailEventName">-</strong>
+          </div>
+          <div class="ticket-detail-item">
+            <span>Date</span>
+            <strong id="detailEventDate">-</strong>
+          </div>
+          <div class="ticket-detail-item">
+            <span>Place</span>
+            <strong id="detailEventVenue">-</strong>
+          </div>
+          <div class="ticket-detail-item">
+            <span>Token ID</span>
+            <strong id="detailTokenId">-</strong>
+          </div>
+          <div class="ticket-detail-item">
+            <span>Purchaser</span>
+            <strong id="detailPurchaserName">-</strong>
+          </div>
+          <div class="ticket-detail-item">
+            <span>Wallet</span>
+            <strong id="detailPurchaserWallet">-</strong>
+          </div>
+        </div>
+
+        <div class="ticket-preview-shell">
+          <canvas id="ticketPreviewCanvas" width="1200" height="450"></canvas>
+        </div>
+
+        <div class="ticket-detail-actions">
+          <button id="downloadTicketBtn" class="btn btn-primary btn-sm">Download Ticket</button>
+          <button id="closeTicketDetailsBtn" class="btn btn-outline btn-sm">Back</button>
+        </div>
+
+        <div id="ticketDownloadStatus" class="status-message"></div>
+      </div>
+
+      <div id="noTicketsMessage" class="empty-state" style="display: none;">
+        <div class="empty-icon">🎟</div>
+        <h2>No Tickets Yet</h2>
+        <p>You haven't booked any tickets yet. Browse shows to get started!</p>
+      </div>
+    </section>
+
+    <!-- TRANSFER TAB -->
+    <section class="tab-content" id="transfer-tab">
+      <div class="content-header">
+        <h1>Transfer Ticket</h1>
+        <p class="content-subtitle">Send your ticket to another wallet</p>
+      </div>
+
+      <div class="transfer-container">
+        <div class="glass-card">
+          <div class="card-header">
+            <span class="card-icon">📤</span>
+            <h2>Transfer Your Ticket</h2>
+          </div>
+
+          <div class="form-group">
+            <label>Select Ticket to Transfer</label>
+            <select class="input-field" id="transferTicketId">
+              <option value="">-- Choose a ticket --</option>
+              <!-- Will be populated from blockchain -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Recipient Wallet Address</label>
+            <input type="text" class="input-field" id="recipientAddress" placeholder="0x...">
+          </div>
+
+          <div class="form-group">
+            <label>Transfer Message (Optional)</label>
+            <textarea class="input-field" id="transferMessage" placeholder="Add a message to the recipient" rows="3"></textarea>
+          </div>
+
+          <button class="btn btn-primary btn-full" id="transferBtn">Transfer Ticket</button>
+          <div id="transferStatus" class="status-message"></div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header">
+            <span class="card-icon">ℹ️</span>
+            <h2>How Transfers Work</h2>
+          </div>
+          <ul class="how-list">
+            <li><span class="step-num">1</span> Select a ticket you own</li>
+            <li><span class="step-num">2</span> Enter the recipient's wallet address</li>
+            <li><span class="step-num">3</span> Confirm the transfer transaction</li>
+            <li><span class="step-num">4</span> The ticket NFT is sent to their wallet</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script src="js/vendor/qrcode.min.js"></script>
+<script src="js/user-dashboard.js"></script>
+
+</body>
+</html>

@@ -449,6 +449,28 @@ body {
 .scanner-layout { display: flex; justify-content: center; }
 .scanner-card { max-width: 480px; width: 100%; }
 
+.scan-tools {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.scan-tools .btn {
+  flex: 1;
+}
+
+.qr-reader {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  min-height: 260px;
+}
+
+.qr-reader video {
+  border-radius: 12px;
+}
+
 .scan-result {
   margin-top: 24px;
   padding: 24px;
@@ -465,12 +487,14 @@ body {
 .scan-result.result-valid   { background: rgba(0,229,160,0.08);  border: 1px solid rgba(0,229,160,0.35); }
 .scan-result.result-invalid { background: rgba(255,77,109,0.08); border: 1px solid rgba(255,77,109,0.35); }
 .scan-result.result-used    { background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.35); }
+.scan-result.result-info    { background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.35); }
 
 .result-icon  { font-size: 2.5rem; margin-bottom: 10px; }
 .result-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
 .scan-result.result-valid   .result-title { color: var(--green); }
 .scan-result.result-invalid .result-title { color: var(--red); }
 .scan-result.result-used    .result-title { color: var(--yellow); }
+.scan-result.result-info    .result-title { color: var(--cyan); }
 .result-msg { font-size: 0.875rem; color: var(--text-secondary); }
 
 /* ── Spinner ── */

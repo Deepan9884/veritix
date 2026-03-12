@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/user-dashboard.css">
 </head>
 <body>
 
@@ -18,47 +19,218 @@
 <nav class="navbar">
   <a href="index.html" class="nav-back">← Back</a>
   <div class="nav-brand">🎫 Veritix</div>
-  <button id="connectBtn" class="btn btn-outline btn-sm">Connect Wallet</button>
+  <div style="display:flex; gap:8px;">
+    <button id="organizerLogoutBtn" class="btn btn-outline btn-sm" style="display:none;">Logout</button>
+    <button id="connectBtn" class="btn btn-outline btn-sm" disabled>Connect Wallet</button>
+  </div>
 </nav>
 
-<main class="dashboard-main">
+<div id="organizerAuthGate" class="empty-state" style="max-width: 520px;">
+  <div class="empty-icon">🔐</div>
+  <h2>Organizer Credentials Login</h2>
+  <p>Login first to access organizer controls, event setup, and ticket management.</p>
 
-  <div class="page-header">
-    <h1>Organizer Dashboard</h1>
-    <p id="walletDisplay" class="wallet-display"></p>
+  <div class="glass-card" style="text-align:left; width:100%; margin-top: 18px;">
+    <div class="form-group">
+      <label>Username</label>
+      <input id="organizerUsername" class="input-field" placeholder="Enter organizer username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input id="organizerPassword" class="input-field" type="password" placeholder="Enter password">
+    </div>
+    <button id="organizerLoginBtn" class="btn btn-primary btn-full">Login</button>
+    <div id="organizerLoginStatus" class="status-message"></div>
+    <p class="card-desc" style="margin-top:12px; margin-bottom:0;">Demo credentials: <b>organizer</b> / <b>veritix123</b></p>
   </div>
+</div>
 
-  <div class="dashboard-grid">
+<div class="dashboard-container" id="organizerDashboard" style="display:none;">
 
-    <div class="glass-card">
-      <div class="card-header">
-        <span class="card-icon">🎟️</span>
-        <h2>Mint Ticket</h2>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-avatar" id="orgAvatar">🏛️</div>
+      <div class="sidebar-user">
+        <div class="sidebar-username" id="orgSidebarName">Organizer</div>
+        <div class="sidebar-wallet" id="orgSidebarWallet"></div>
       </div>
-      <p class="card-desc">Issue a new NFT ticket directly to an attendee's wallet address.</p>
-      <div class="form-group">
-        <label>Recipient Wallet Address</label>
-        <input id="walletAddress" class="input-field" placeholder="0x...">
-      </div>
-      <button id="mintBtn" class="btn btn-primary btn-full">Mint Ticket</button>
-      <div id="status" class="status-message"></div>
     </div>
 
-    <div class="glass-card">
-      <div class="card-header">
-        <span class="card-icon">ℹ️</span>
-        <h2>How It Works</h2>
-      </div>
-      <ul class="how-list">
-        <li><span class="step-num">1</span> Connect your owner wallet via MetaMask</li>
-        <li><span class="step-num">2</span> Enter the attendee's wallet address</li>
-        <li><span class="step-num">3</span> Click Mint — an NFT ticket is issued on-chain</li>
-        <li><span class="step-num">4</span> The attendee can view their ticket and QR code</li>
-      </ul>
-    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-tab="profile">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">My Profile</span>
+      </button>
+      <button class="nav-item" data-tab="events">
+        <span class="nav-icon">📅</span>
+        <span class="nav-label">Events</span>
+      </button>
+      <button class="nav-item" data-tab="tickets">
+        <span class="nav-icon">🎟️</span>
+        <span class="nav-label">Tickets Management</span>
+      </button>
+    </nav>
+  </aside>
 
-  </div>
-</main>
+  <main class="dashboard-content">
+    <section class="tab-content" id="profile-tab" style="display: block;">
+      <div class="content-header">
+        <h1>My Profile</h1>
+        <p class="content-subtitle">Maintain organizer profile and business details</p>
+        <p id="walletDisplay" class="wallet-display"></p>
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-photo-section">
+          <div class="profile-photo" id="orgProfilePhoto">🏛️</div>
+          <button class="btn btn-outline btn-sm" style="width: 100%; margin-top: 12px;">Update Photo</button>
+        </div>
+
+        <div class="profile-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Organizer Name</label>
+              <input id="orgName" class="input-field" placeholder="Organizer or company name">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input id="orgEmail" class="input-field" type="email" placeholder="organizer@email.com">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input id="orgPhone" class="input-field" placeholder="+1 (555) 000-0000">
+            </div>
+            <div class="form-group">
+              <label>Website</label>
+              <input id="orgWebsite" class="input-field" placeholder="https://example.com">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Organization</label>
+              <input id="orgCompany" class="input-field" placeholder="Company / Organization">
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <input id="orgRole" class="input-field" placeholder="Event Manager">
+            </div>
+          </div>
+
+          <button id="saveOrgProfileBtn" class="btn btn-primary">Save Profile</button>
+          <div id="orgProfileStatus" class="status-message"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-content" id="events-tab">
+      <div class="content-header">
+        <h1>Events</h1>
+        <p class="content-subtitle">Create and track your event catalog</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="glass-card">
+          <div class="card-header">
+            <span class="card-icon">➕</span>
+            <h2>Create Event</h2>
+          </div>
+
+          <div class="form-group">
+            <label>Event Name</label>
+            <input id="eventName" class="input-field" placeholder="Summer Music Festival">
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input id="eventDate" class="input-field" type="date">
+          </div>
+          <div class="form-group">
+            <label>Venue</label>
+            <input id="eventVenue" class="input-field" placeholder="City Arena">
+          </div>
+          <div class="form-group">
+            <label>Price (USD)</label>
+            <input id="eventPrice" class="input-field" type="number" min="0" step="0.01" placeholder="99.00">
+          </div>
+
+          <button id="createEventBtn" class="btn btn-primary btn-full">Add Event</button>
+          <div id="eventsStatus" class="status-message"></div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header">
+            <span class="card-icon">📌</span>
+            <h2>Created Events</h2>
+          </div>
+          <div id="eventsList" class="shows-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-content" id="tickets-tab">
+      <div class="content-header">
+        <h1>Tickets Management</h1>
+        <p class="content-subtitle">Set inventory and track total, sold, and remaining tickets</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="glass-card">
+          <div class="card-header">
+            <span class="card-icon">🎟️</span>
+            <h2>Ticket Inventory</h2>
+          </div>
+
+          <div class="form-group">
+            <label>Event</label>
+            <select id="ticketEventSelect" class="input-field">
+              <option value="">-- Select Event --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Number of Tickets</label>
+            <input id="ticketBatchSize" class="input-field" type="number" min="1" placeholder="10">
+          </div>
+
+          <button id="updateInventoryBtn" class="btn btn-primary btn-full">Add Tickets</button>
+          <div id="inventoryStatus" class="status-message"></div>
+
+          <div class="tickets-list" style="margin-top: 18px; grid-template-columns: repeat(3, minmax(120px, 1fr)); gap: 12px;">
+            <div class="ticket-item" style="padding: 14px;">
+              <div class="ticket-item-meta" style="margin-bottom: 4px;">Total</div>
+              <div class="ticket-item-title" id="totalTicketsValue" style="margin-bottom: 0;">0</div>
+            </div>
+            <div class="ticket-item" style="padding: 14px;">
+              <div class="ticket-item-meta" style="margin-bottom: 4px;">Sold</div>
+              <div class="ticket-item-title" id="soldTicketsValue" style="margin-bottom: 0;">0</div>
+            </div>
+            <div class="ticket-item" style="padding: 14px;">
+              <div class="ticket-item-meta" style="margin-bottom: 4px;">Left</div>
+              <div class="ticket-item-title" id="leftTicketsValue" style="margin-bottom: 0;">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header">
+            <span class="card-icon">📊</span>
+            <h2>Events Ticket Analysis</h2>
+          </div>
+
+          <div id="issuedTicketsList" class="tickets-list"></div>
+          <div id="noIssuedTickets" class="empty-state" style="display:none; padding: 30px 10px;">
+            <div class="empty-icon">🎫</div>
+            <h2>No Event Inventory Yet</h2>
+            <p>Create an event and add tickets to see analytics here.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 <script src="js/app.js"></script>

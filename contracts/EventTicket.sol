@@ -28,6 +28,19 @@ contract EventTicket is ERC721, Ownable {
         nextTicketId++;
     }
 
+    function bookTicket(uint256 ticketId) public {
+
+        require(_exists(ticketId), "Ticket does not exist");
+
+        require(!tickets[ticketId].used, "Ticket already used");
+
+        address organizer = owner();
+
+        require(ownerOf(ticketId) == organizer, "Ticket not available");
+
+        _safeTransfer(organizer, msg.sender, ticketId, "");
+    }
+
     function verifyAndUse(uint256 ticketId) public {
 
         require(_exists(ticketId), "Ticket does not exist");
