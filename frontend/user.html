@@ -1,29 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<title>User Dashboard</title>
-<link rel="stylesheet" href="css/dashboard.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritix — My Ticket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
-
 <body>
 
-<h1>🎟 My Tickets</h1>
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-3"></div>
+</div>
 
-<button onclick="connectWallet()">Connect Wallet</button>
+<nav class="navbar">
+  <a href="index.html" class="nav-back">← Back</a>
+  <div class="nav-brand">🎫 Veritix</div>
+  <button onclick="connectWallet()" id="connectBtn" class="btn btn-outline btn-sm">Connect Wallet</button>
+</nav>
 
-<h2>Your Wallet</h2>
-<p id="wallet"></p>
+<main class="dashboard-main">
+  <div class="page-header">
+    <h1>My Ticket</h1>
+    <p id="wallet" class="wallet-display"></p>
+  </div>
+</main>
 
-<h2>Your Ticket</h2>
-<p id="ticket"></p>
+<div class="ticket-wrapper" id="ticketWrapper" style="display:none">
+  <div class="ticket-card">
+    <div class="ticket-header">
+      <span>🎫 Veritix</span>
+      <span class="ticket-badge">VALID</span>
+    </div>
+    <div class="ticket-title">Event Ticket</div>
+    <div class="ticket-id" id="ticket"></div>
+    <div class="ticket-divider">
+      <span></span><span class="ticket-dot">✂</span><span></span>
+    </div>
+    <div class="ticket-qr">
+      <div id="qrcode"></div>
+      <p class="qr-hint">Show this QR at the entrance</p>
+    </div>
+  </div>
+</div>
 
-<div id="qrcode"></div>
+<div id="noTicket" class="empty-state" style="display:none">
+  <div class="empty-icon">🎟️</div>
+  <h2>No Ticket Found</h2>
+  <p>You don't hold a ticket NFT in this wallet. Contact the event organizer.</p>
+</div>
+
+<div id="connectPrompt" class="empty-state">
+  <div class="empty-icon">🔗</div>
+  <h2>Connect Your Wallet</h2>
+  <p>Connect your MetaMask wallet to view your ticket and QR code.</p>
+  <button onclick="connectWallet()" class="btn btn-primary">Connect Wallet</button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
-
 <script src="js/user.js"></script>
 
 </body>

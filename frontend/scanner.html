@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritix — Entry Scanner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-back">← Back</a>
+  <div class="nav-brand">🎫 Veritix</div>
+  <button id="connectBtn" class="btn btn-outline btn-sm">Connect Wallet</button>
+</nav>
+
+<main class="dashboard-main">
+  <div class="page-header">
+    <h1>Entry Scanner</h1>
+    <p id="walletDisplay" class="wallet-display"></p>
+  </div>
+
+  <div class="scanner-layout">
+    <div class="glass-card scanner-card">
+
+      <div class="card-header">
+        <span class="card-icon">🔍</span>
+        <h2>Verify Ticket</h2>
+      </div>
+      <p class="card-desc">Enter the ticket ID shown on the attendee's QR code to verify and check them in.</p>
+
+      <div class="form-group">
+        <label>Ticket ID</label>
+        <input id="ticketId" class="input-field" type="number" min="0" placeholder="e.g. 0">
+      </div>
+
+      <button id="verifyBtn" class="btn btn-primary btn-full">Verify &amp; Check In</button>
+
+      <div id="result" class="scan-result" style="display:none">
+        <div id="resultIcon" class="result-icon"></div>
+        <div id="resultTitle" class="result-title"></div>
+        <div id="resultMsg" class="result-msg"></div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script src="js/scanner.js"></script>
+
+</body>
+</html>

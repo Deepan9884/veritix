@@ -1,29 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Blockchain Ticket Verification</title>
-    <link rel="stylesheet" href="css/dashboard.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritix — Blockchain Ticket Verification</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
-
 <body>
 
-<h1>🎟 Blockchain Ticket Verification System</h1>
-
-<div class="container">
-
-<button onclick="location.href='organizer.html'">
-Organizer Dashboard
-</button>
-
-<button onclick="location.href='user.html'">
-User Dashboard
-</button>
-
-<button onclick="location.href='scanner.html'">
-Entry Scanner
-</button>
-
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 </div>
+
+<nav class="navbar">
+  <div style="width:80px"></div>
+  <div class="nav-brand">🎫 Veritix</div>
+  <div style="width:80px"></div>
+</nav>
+
+<main class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Powered by Blockchain</div>
+    <h1 class="hero-title">Tamper-Proof<br><span class="gradient-text">Event Ticketing</span></h1>
+    <p class="hero-subtitle">Mint, manage, and verify event tickets on-chain. No fakes. No fraud. No middlemen.</p>
+    <div class="card-grid">
+
+      <div class="nav-card" onclick="location.href='organizer.html'">
+        <div class="nav-card-icon">🏛️</div>
+        <h3>Organizer</h3>
+        <p>Mint and manage NFT tickets for your event attendees</p>
+        <span class="nav-card-arrow">→</span>
+      </div>
+
+      <div class="nav-card" onclick="location.href='user.html'">
+        <div class="nav-card-icon">🎟️</div>
+        <h3>Attendee</h3>
+        <p>View your ticket and generate your QR entry code</p>
+        <span class="nav-card-arrow">→</span>
+      </div>
+
+      <div class="nav-card" onclick="location.href='scanner.html'">
+        <div class="nav-card-icon">🔍</div>
+        <h3>Scanner</h3>
+        <p>Verify and check in attendees at the venue door</p>
+        <span class="nav-card-arrow">→</span>
+      </div>
+
+    </div>
+  </div>
+</main>
 
 </body>
 </html>
